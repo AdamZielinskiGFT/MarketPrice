@@ -9,7 +9,7 @@ import javax.jms.TextMessage;
 import java.io.IOException;
 
 @NoArgsConstructor
-public class PriceChangeListener implements MessageListener {
+public class MarketPriceChangeListener implements MessageListener {
 
     public void onMessage(Message message) {
         if (message instanceof TextMessage) {

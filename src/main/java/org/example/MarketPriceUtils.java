@@ -20,7 +20,7 @@ public class MarketPriceUtils {
         }
         try {
             return Price.builder()
-                    .id(Long.parseLong(marketPriceElements[0]))
+                    .id(Long.parseLong(marketPriceElements[0].replaceAll("\\s+","")))
                     .instrumentName(marketPriceElements[1].replaceAll("\\s+",""))
                     .bid(Double.valueOf(marketPriceElements[2]))
                     .ask(Double.valueOf(marketPriceElements[3]))

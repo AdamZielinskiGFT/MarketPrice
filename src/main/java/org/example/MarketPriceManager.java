@@ -26,7 +26,7 @@ public class MarketPriceManager {
         marketPricesFileStream.close();
     }
 
-    private Price getPriceFromFile(String instrumentName) throws IOException, ParseException {
+    Price getPriceFromFile(String instrumentName) throws IOException, ParseException {
         FileInputStream fileStream = new FileInputStream(PRICES_FILE_NAME);
         BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
 
