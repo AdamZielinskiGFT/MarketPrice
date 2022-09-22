@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -13,17 +13,19 @@ public class MarketPriceUtils {
     static final String INVALID_FILE_FORMAT_MESSAGE="Invalid file format";
 
 
-    static Price convertLineToMarketPrice(String priceLine) throws ParseException {
-        String[] marketPriceElements = priceLine.split(PRICES_FILE_SEPARATOR);
+    static Price convertLineToMarketPrice(String priceLineFromCsv) throws ParseException {
+
+        String[] marketPriceElements = priceLineFromCsv.split(PRICES_FILE_SEPARATOR);
         if(marketPriceElements.length != NUMBER_OF_PRICE_PROPERTIES) {
             throw new ParseException(INVALID_FILE_FORMAT_MESSAGE, 0);
         }
+
         try {
             return Price.builder()
-                    .id(Long.parseLong(marketPriceElements[0].replaceAll("\\s+","")))
-                    .instrumentName(marketPriceElements[1].replaceAll("\\s+",""))
-                    .bid(Double.valueOf(marketPriceElements[2]))
-                    .ask(Double.valueOf(marketPriceElements[3]))
+                    .id(Long.parseLong(removeSpaces(marketPriceElements[0])))
+                    .instrumentName(removeSpaces(marketPriceElements[1]))
+                    .bid(Double.valueOf(removeSpaces(marketPriceElements[2])))
+                    .ask(Double.valueOf(removeSpaces(marketPriceElements[3])))
                     .timestamp(reverseFileTimestampFormat(marketPriceElements[4]))
                     .build();
         }
@@ -45,5 +47,9 @@ public class MarketPriceUtils {
         if(parsedDate.getTime() < 0)
             throw new ParseException(INVALID_FILE_FORMAT_MESSAGE, 0);
         return new Timestamp(parsedDate.getTime());
+    }
+
+    private static String removeSpaces(String textWithSpaces){
+        return textWithSpaces.replaceAll("\\s+","");
     }
 }

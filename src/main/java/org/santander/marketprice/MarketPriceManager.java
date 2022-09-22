@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import lombok.NoArgsConstructor;
 
@@ -27,7 +27,13 @@ public class MarketPriceManager {
     }
 
     Price getPriceFromFile(String instrumentName) throws IOException, ParseException {
-        FileInputStream fileStream = new FileInputStream(PRICES_FILE_NAME);
+        FileInputStream fileStream;
+        try {
+            fileStream = new FileInputStream(PRICES_FILE_NAME);
+        }
+        catch (FileNotFoundException e){
+            return null;
+        }
         BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
 
         while(reader.ready()){

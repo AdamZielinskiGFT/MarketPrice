@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class MarketPriceUtilsTest {
 
 
     @Test
-    public void shouldAddOnePromilToAskAndSubstructOnePromilFromBid(){
+    public void shouldAddOnePromilToAskAndSubtractOnePromilFromBid(){
 
         Price price = Price.builder()
                 .id(1)

@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import lombok.Builder;
 import lombok.Data;

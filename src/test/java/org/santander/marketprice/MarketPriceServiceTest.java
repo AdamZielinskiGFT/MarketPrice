@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,6 +21,9 @@ class MarketPriceServiceTest {
     @Test
     void getMarketPrice() throws IOException, ParseException {
         Price marketPrice = marketPriceService.getMarketPrice("EUR/USD");
-        logger.info("Market ask price: " + marketPrice.getAsk() + " and market bid price: " + marketPrice.getBid());
+        if(marketPrice != null)
+            logger.info("Market ask price: " + marketPrice.getAsk() + " and market bid price: " + marketPrice.getBid());
+        else
+            logger.info("Price not found");
     }
 }

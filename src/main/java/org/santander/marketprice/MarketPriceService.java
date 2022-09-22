@@ -1,4 +1,4 @@
-package org.example;
+package org.santander.marketprice;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
