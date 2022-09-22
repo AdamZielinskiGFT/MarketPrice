@@ -1,28 +1,20 @@
 package org.example;
 
-import org.springframework.jms.core.JmsTemplate;
+import lombok.NoArgsConstructor;
 
-import javax.jms.*;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 import java.io.IOException;
 
+@NoArgsConstructor
 public class PriceChangeListener implements MessageListener {
-
-    private JmsTemplate jmsTemplate;
-    private Queue queue;
-
-    public void setJmsTemplate(JmsTemplate jmsTemplate) {
-        this.jmsTemplate = jmsTemplate;
-    }
-
-    public void setQueue(Queue queue) {
-        this.queue = queue;
-    }
 
     public void onMessage(Message message) {
         if (message instanceof TextMessage) {
             try {
                 String msg = ((TextMessage) message).getText();
-                System.out.println("Received message: " + msg);
                 if (msg == null) {
                     throw new IllegalArgumentException("Null value received...");
                 }
@@ -33,10 +25,4 @@ public class PriceChangeListener implements MessageListener {
             }
         }
     }
-
-//    public Employee receiveMessage() throws JMSException {
-//        Map map = (Map) this.jmsTemplate.receiveAndConvert();
-//        return new Employee((String) map.get("name"), (Integer) map.get("age"));
-//    }
-
 }

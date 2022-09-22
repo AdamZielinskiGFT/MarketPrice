@@ -4,19 +4,17 @@ import lombok.NoArgsConstructor;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 
 @NoArgsConstructor
 public class MarketPriceManager {
 
     private static final String PRICES_FILE_NAME="prices.txt";
 
-    public Price getPriceByInstrumentName(String instrumentName) throws IOException {
+    public Price getPriceByInstrumentName(String instrumentName) throws IOException, ParseException {
         if(instrumentName == null || instrumentName.isEmpty())
             return null;
-        Price price = getPriceFromFile(instrumentName);
-        if(price == null || price.getAsk() == null || price.getBid() == null)
-            return null;
-        return MarketPriceUtils.getPriceWithMargin(price);
+        return MarketPriceUtils.getPriceWithMargin(getPriceFromFile(instrumentName));
     }
 
     public void savePricesToFile(String csvWithPrices) throws IOException {
@@ -28,7 +26,7 @@ public class MarketPriceManager {
         marketPricesFileStream.close();
     }
 
-    private Price getPriceFromFile(String instrumentName) throws IOException {
+    private Price getPriceFromFile(String instrumentName) throws IOException, ParseException {
         FileInputStream fileStream = new FileInputStream(PRICES_FILE_NAME);
         BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
 
